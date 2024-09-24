@@ -6,7 +6,7 @@ const PORT = 3000;
 app.use(express.json());
 
 app.get('/authorize', (req, res) => {
-    const trelloAuthUrl = 'https://trello.com/1/authorize?expiration=1day&name=MyPersonalToken&scope=read&response_type=token&key=24dae7ea7be0b916f47975a8e2316242&return_url=https://express-trello.onrender.com/callback';
+    const trelloAuthUrl = 'https://trello.com/1/authorize?expiration=1day&name=MyPersonalToken&scope=read,write,account&response_type=token&key=24dae7ea7be0b916f47975a8e2316242&return_url=https://express-trello.onrender.com/callback';
     res.redirect(trelloAuthUrl);
 });
 
