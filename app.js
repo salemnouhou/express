@@ -14,7 +14,7 @@ app.get('/callback', (req, res) => {
     const token = req.query.token;
 
     const tokenData = { token: token };
-
+    console.log(tokenData);
     res.json(tokenData);
 });
 
