@@ -20,6 +20,7 @@ app.get('/callback', (req, res) => {
             <title>Callback</title>
         </head>
         <body>
+        <div id="content"></div>
             <script>
                 const hash = window.location.hash;
                 const params = new URLSearchParams(hash.slice(1)); 
@@ -36,6 +37,8 @@ app.get('/callback', (req, res) => {
                     .then(response => response.json())
                     .then(data => console.log('Réponse du serveur:', data))
                     .catch(error => console.error('Erreur:', error));
+                    let content = document.getElementById("content")
+                    content.innerHTML="AUTHENTIFICATION REUSSIE VEUILLEZ RETOURNER VOUS CONNECTER A LAPPLICATION"
                 } else {
                     console.error('Aucun token trouvé dans le fragment.');
                 }
@@ -51,7 +54,7 @@ app.post('/receive-token', (req, res) => {
     if (token) {
         console.log('Token reçu:', token);
         // res.json({ message: 'Token reçu avec succès', token: token });
-        
+
     } else {
         res.status(400).json({ error: 'Aucun token fourni' });
     }
