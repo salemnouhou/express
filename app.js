@@ -21,13 +21,11 @@ app.get('/callback', (req, res) => {
         </head>
         <body>
             <script>
-                // Extraire le token du fragment
                 const hash = window.location.hash;
-                const params = new URLSearchParams(hash.slice(1)); // Enlève le '#' et crée un objet URLSearchParams
-                const token = params.get('token'); // Récupère la valeur du token
+                const params = new URLSearchParams(hash.slice(1)); 
+                const token = params.get('token'); 
 
                 if (token) {
-                    // Envoyer le token au serveur
                     fetch('https://express-trello.onrender.com/receive-token', {
                         method: 'POST',
                         headers: {
@@ -52,7 +50,7 @@ app.post('/receive-token', (req, res) => {
 
     if (token) {
         console.log('Token reçu:', token);
-        res.json({ message: 'Token reçu avec succès', token: token });
+        // res.json({ message: 'Token reçu avec succès', token: token });
     } else {
         res.status(400).json({ error: 'Aucun token fourni' });
     }
@@ -63,29 +61,3 @@ app.listen(PORT, () => {
 });
 
 
-
-// const express = require('express');
-
-// const app = express();
-// const PORT = 3000;
-
-// app.use(express.json());
-
-// app.get('/authorize', (req, res) => {
-//     const trelloAuthUrl = 'https://trello.com/1/authorize?expiration=1day&name=MyPersonalToken&scope=read&response_type=token&key=24dae7ea7be0b916f47975a8e2316242&return_url=https://express-trello.onrender.com/callback';
-//     res.redirect(trelloAuthUrl);
-// });
-
-// app.get('/callback', (req, res) => {
-//     const token = req.query.token;
-
-//     const tokenData = { token: token };
-//     console.log(tokenData);
-//     res.json(tokenData);
-// });
-
-
-
-// app.listen(PORT, () => {
-//     console.log(`Le serveur est en cours d'exécution sur http://localhost:${PORT}`);
-// });
