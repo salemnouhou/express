@@ -1,9 +1,10 @@
 const express = require('express');
-
+const path = require('path'); 
 const app = express();
 const PORT = 3000;
 
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/authorize', (req, res) => {
     const trelloAuthUrl = 'https://trello.com/1/authorize?expiration=1day&name=MyPersonalToken&scope=read&response_type=token&key=24dae7ea7be0b916f47975a8e2316242&return_url=https://express-trello.onrender.com/callback';
@@ -51,9 +52,14 @@ app.post('/receive-token', (req, res) => {
     if (token) {
         console.log('Token reçu:', token);
         // res.json({ message: 'Token reçu avec succès', token: token });
+        res.redirect('/success');
     } else {
         res.status(400).json({ error: 'Aucun token fourni' });
     }
+});
+
+app.get('/success', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'success.html'));
 });
 
 app.listen(PORT, () => {
